@@ -1,0 +1,11 @@
+__pycache__/
+dist/
+build/
+data/
+logs/
+pob/
+buildit.bat
+*.spec
+settings.json
+poeclog.log
+*test*
