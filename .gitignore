@@ -6,6 +6,6 @@ logs/
 pob/
 buildit.bat
 *.spec
-settings.json
+*.json
 poeclog.log
 *test*
