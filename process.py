@@ -91,6 +91,8 @@ def loadprofile():
         lastrun = time.time()
 
 def addlog(account,chrname,data):
+    accountdb = "accountdb.json"
+    accounts = {}
     data["update"] = time.time()
     chardata = [data]
     dbname = f'data/{account}-{chrname}.json'
@@ -99,8 +101,16 @@ def addlog(account,chrname,data):
             chardata = json.load(json_file)
     chardata.append(data)
     if len(chardata) > 1:
+        if os.path.exists(accountdb):
+            with open(accountdb) as json_file:
+                accounts = json.load(json_file)
         charparser.makelogs(account, chrname, chardata[len(chardata)-2], chardata[len(chardata)-1])
-        charparser.makexml(account, chrname, chardata)     
+        if not account in accounts:
+            accounts[account] = {}
+        accounts[account][chrname] = chardata[len(chardata)-1]["character"]
+        accounts[account][chrname]["clogextradata"] = charparser.makexml(account, chrname, chardata)     
+        with open(accountdb, 'w') as json_file:
+            json.dump(accounts, json_file, indent=4, default=str)    
     with open(dbname, 'w') as json_file:
         json.dump(chardata, json_file, indent=4, default=str)
 
