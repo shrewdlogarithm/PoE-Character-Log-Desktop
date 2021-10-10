@@ -42,9 +42,13 @@ def start():
     def server_static(filename):
         return static_file(filename, root='./pob/builds')
 
+    @app.route("/log")
+    def log():
+        return template(utils.base_path +"templates/log.tpl")
+
     @app.route("/settings")
     def settings():
-        return template(utils.base_path +"templates/settings.tpl",{"options": utils.options})
+        return template(utils.base_path +"templates/settings.tpl")
 
     @app.route("/savesettings", method='POST')
     def savesettings():

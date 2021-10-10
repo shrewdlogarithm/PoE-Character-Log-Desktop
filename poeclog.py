@@ -37,7 +37,7 @@ def showpg(pg,icon):
     webbrowser.open("http://localhost:8080/" + pg)
 
 def about(icon):
-    webbrowser.open(utils.homep)
+    webbrowser.open("https://github.com/shrewdlogarithm/" + utils.homep)
 
 def exit_action(icon):
     global runprocess
@@ -49,8 +49,11 @@ pystray.Icon('Icon', Image.open(utils.base_path + "poe.png") , menu=pystray.Menu
             'Update Now',
             lambda icon, item: runupd(icon)),
         pystray.MenuItem(
-            'View Log',
+            'View Characters',
             lambda icon, item: showpg("",icon)),
+        pystray.MenuItem(
+            'View Log',
+            lambda icon, item: showpg("log",icon)),
         pystray.MenuItem(
             'Settings',
             lambda icon, item: showpg("settings",icon)),
