@@ -24,11 +24,23 @@ def start():
 
     @app.route('/')
     def index():
-        return template(utils.base_path +"templates/index.tpl",{"options": utils.options,"logs": utils.getlogs()})
+        return template(utils.base_path +"templates/index.tpl")
     
     @app.route('/css/<filename>')
     def server_static(filename):
         return static_file(filename, root="./css")
+
+    @app.route('/data/<filename>')
+    def server_static(filename):
+        return static_file(filename, root='./data')
+
+    @app.route('/logs/<filename>')
+    def server_static(filename):
+        return static_file(filename, root='./logs')
+
+    @app.route('/pob/builds/<filename>')
+    def server_static(filename):
+        return static_file(filename, root='./pob/builds')
 
     @app.route("/settings")
     def settings():

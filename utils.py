@@ -1,8 +1,9 @@
 import sys,os,json
 from datetime import datetime
 
-homep = "https://github.com/shrewdlogarithm/PoE-Character-Log-Desktop"
+homep = "PoE-Character-Log-Desktop"
 vers = "0.315.01"
+accountdb = "accountdb.json"
 
 # create directories
 dirs = ("data","logs","pob","pob/builds")

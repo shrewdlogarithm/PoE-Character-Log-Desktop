@@ -1,7 +1,7 @@
 import glob,json,os,traceback
 from charparser import makelogs,makexml
+import utils
 
-accountdb = "accountdb.json"
 accounts = {}
 
 logs = glob.glob(f'logs/*-*.*')
@@ -32,5 +32,5 @@ for POEChar in POEChars:
             track = traceback.format_exc()
             print(track)
 
-with open(accountdb, 'w') as json_file:
+with open(utils.accountdb, 'w') as json_file:
     json.dump(accounts, json_file, indent=4)
