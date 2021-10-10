@@ -17,6 +17,8 @@ for POEChar in POEChars:
 
     account,char = os.path.basename(POEChar).replace(".json","").split("-")
 
+    print(account,"-",char)
+
     with open(POEChar, encoding='utf-8') as json_file:
         try:
             chardata = json.load(json_file)
