@@ -34,9 +34,9 @@ def checklog():
                             if zonedf:
                                 utils.writelog(zonedf.groups()[1] + " (" + zonedf.groups()[0] + ")")   
                                 loadprofile()
+                        lastlogdate = logln.groups()
                 except:
-                    utils.writelog("Error decoding PoE Log")
-            lastlogdate = logln.groups()
+                    utils.writelog("Error decoding PoE Log")            
             f.close()
         lastlogfile = upd
     else:
