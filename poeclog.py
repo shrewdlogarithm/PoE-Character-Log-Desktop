@@ -1,13 +1,25 @@
-import os,time,threading,pystray,webbrowser
+import os,time,threading,pystray,webbrowser,pyperclip
 from PIL import Image
 import server,process,utils
+import mapparser
 
 runprocess = True
+
+# Clipboard Thread
+def watchclip(icon):
+    global runprocess
+    while runprocess == True:      
+        try:
+            clip = pyperclip.waitForNewPaste(5)
+            mapparser.decodemap(clip)
+        except:
+            pass
+    print("clipboard scan ending")
 
 # Process Thread
 def doprocess(icon):
     global runprocess
-    #process.loadprofile() # catch-up any characters/find the last active one
+    process.loadprofile() # catch-up any characters/find the last active one
     while runprocess == True:        
         process.checklog()        
         time.sleep(5)
@@ -17,6 +29,9 @@ def doprocess(icon):
 def main(icon):   
     icon.visible = True
 
+    cthread = threading.Thread(target=watchclip,args=[icon])
+    cthread.start()
+
     pthread = threading.Thread(target=doprocess,args=[icon])
     pthread.start()
 
@@ -24,7 +39,8 @@ def main(icon):
 
     print("main ending")
 
-    pthread.join() # wait for process thread
+    cthread.join() # wait for thread
+    pthread.join() # wait for thread
 
     os._exit(0) # this ensures nothing gets left behind!
 
