@@ -1,11 +1,11 @@
 import re
+import utils
 
 lastmap = ""
 
 def decodemap(maptext):
     global lastmap
     if lastmap != maptext:
-        rarename = re.compile(r"[a-z]'s ", re.IGNORECASE)
         map = {
             "Name": "",
             "Rarity": "",
@@ -15,6 +15,7 @@ def decodemap(maptext):
             "Monster Pack Size": 0,
             "Quality": 0,
             "Corrupted": False,
+            "Identified": True,
             "Modifiers": []
         }
         if maptext.startswith("Item Class: Maps"):
@@ -30,7 +31,9 @@ def decodemap(maptext):
                         if map["Rarity"] == "Unique":
                             map["Name"] = lns[p-1] 
                         else:
-                            map["Name"] = re.sub(r"[a-z]+'s ","",ln.replace(" Map","").replace("Superior ",""), flags=re.IGNORECASE)
+                            if map["Rarity"] == "Magic":
+                                ln = re.sub(r'^[^ ]+ ',"",ln)
+                            map["Name"] = ln.replace(" Map","").replace("Superior ","")
             if len(sects) > 1:
                 lns = re.split(r'\r\n',sects[1])
                 for ln in lns:
@@ -41,7 +44,7 @@ def decodemap(maptext):
                             tokval = toks.groups()[1]
                             numval = re.search(r'([0-9]+)+%',tokval)
                             if numval:
-                                tokval = numval.groups()[0]
+                                tokval = int(numval.groups()[0])
                             map[tok] = tokval
             if len(sects) > 2:
                 numval = re.search(r'Item Level: ([0-9]+)\r\n',sects[2])
@@ -63,6 +66,19 @@ def decodemap(maptext):
                             if occu:
                                 map["Occupied"] = occu.groups()[0].strip()
                                 continue
-                            map["Modifiers"].append(ln)
+                            if len(ln) > 2:
+                                map["Modifiers"].append(ln)
             print(map)
+            mapstub = map["Name"] + " T" + map["Map Tier"] 
+            if map["Item Quantity"] > 0:
+                mapstub += f' Qt:{map["Item Quantity"]}'
+            if map["Quality"] > 0:
+                mapstub += f' Ql:{map["Quality"]}'
+            if not map["Identified"]:
+                mapstub += " Unid"
+            elif len(map["Modifiers"]) > 0:
+                mapstub += f' {len(map["Modifiers"])}Mod'
+            if map["Corrupted"]:
+                mapstub += " Corrupt"
+            utils.writelog(mapstub)
             lastmap = maptext
