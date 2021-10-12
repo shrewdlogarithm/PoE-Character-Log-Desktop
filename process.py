@@ -65,13 +65,12 @@ def getprofile():
     account = utils.getopt("account")
     return session.get(f"{poesite}/character-window/get-characters?accountName={account}&realm=pc")
 
-lastrun = 0
 lastch = ""
 olddb = {}
 
 def loadprofile():
-    global lastrun,lastch,olddb
-    if time.time() - lastrun > 5:
+    global lastch,olddb
+    if time.time() - utils.getopt("lastapi") > 5:
         apichars = getprofile()
         if apichars.status_code == 200:
             apichardb = apichars.json()
@@ -88,7 +87,7 @@ def loadprofile():
             olddb = apichardb
         else:
             utils.writelog("PoE Account missing/not found or private?")
-        lastrun = time.time()
+        utils.setopt("lastapi",time.time())
 
 def addlog(account,chrname,data):
     data["update"] = time.time()
