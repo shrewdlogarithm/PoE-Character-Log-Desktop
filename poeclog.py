@@ -19,7 +19,7 @@ def watchclip(icon):
 # Process Thread
 def doprocess(icon):
     global runprocess
-    process.loadprofile() # catch-up any characters/find the last active one
+    #process.loadprofile() # catch-up any characters/find the last active one
     while runprocess == True:        
         process.checklog()        
         time.sleep(5)

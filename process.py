@@ -33,11 +33,12 @@ def checklog():
                             zonedf = re.search("Generating level ([0-9]+) area \"(.*)\"",logln.groups()[7])
                             if zonedf:
                                 utils.writelog(zonedf.groups()[1] + " (" + zonedf.groups()[0] + ")")   
-                                loadprofile()
-                        lastlogdate = logln.groups()
+                                loadprofile()                                      
                 except:
                     utils.writelog("Error decoding PoE Log")            
             f.close()
+            if logln:
+                lastlogdate = logln.groups()
         lastlogfile = upd
     else:
         utils.writelog("Path to client.txt log file invalid/not found")
