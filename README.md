@@ -25,6 +25,11 @@ The first time you run it creates "settings.json" - edit that (or use the Settin
 Your account name (login name for PoE NOT a character name)
 The  path to your PoE/logs/client.txt file (e.c. c:\\program files\\path of exile\\logs/client.txt) << Note use either \\ or / as separators
 
+## What it does ##
+Creates a log of every character change/zone change you do - it also shows how much of a level's XP you earned in your last area.
+When you zone it queries your character profile and if you've earned XP it stores your gear/passives - from which we can make PoBs/Build Logs etc.
+It also watches your clipboard for "Ctrl-C"ed Maps - if it finds one, it shows this in your log too
+
 ## What it creates ##
 In the 'data' directory 
 JSON files which are a complete dump of API data for Tree, Skills and Items - 1 entry per scan
@@ -37,4 +42,4 @@ In the "pob/builds" directory
 XML - a Path-of-Building-compatible savefile 
 
 ## Known Issues ##
-Probably LOADS of these - this is the first release - do let me know what you find!
+There will be LOADS - this is the first release and it's end-of-league - do let me know what you find tho!!
