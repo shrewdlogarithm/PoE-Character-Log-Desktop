@@ -28,7 +28,7 @@ def start():
     
     @app.route('/css/<filename>')
     def server_static(filename):
-        return static_file(filename, root="./css")
+        return static_file(filename, root=utils.base_path + "css")
 
     @app.route('/data/<filename>')
     def server_static(filename):
