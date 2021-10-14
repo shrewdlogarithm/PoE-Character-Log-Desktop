@@ -16,10 +16,9 @@ It's a 'desktop' version of the server-based https://github.com/shrewdlogarithm/
 [PoEClog in less than 60s (YouTube Link)](https://www.youtube.com/watch?v=Mje0pl9L8sY)
 
 ## How to Use ##
-You can either run this as Python source or download a release version for your platform.
-At this point only a Windows release is available - if MacOS/Linux users would like to build/test a release for those (pyinstaller) please get-in-touch!
+You can either run this as Python source or download a binary release version for your platform (if available - see below)
 
-Once run, there's an icon in your task-tray - this tracks your characters in the background - you can view the log ad exit from the task-tray menu...  
+This should create an icon in your task-tray - this tracks your characters in the background - you can use it's menu to view the log, character details, change settings and close the program (this takes upto 5secs to close everything gracefully)
 
 The first time you run it creates "settings.json" - edit that (or use the Settings option in the tray menu) to  set
 Your account name (login name for PoE NOT a character name)
@@ -41,5 +40,8 @@ HTML files - the same content as the LOG but hyperlinked/colourized
 In the "pob/builds" directory 
 XML - a Path-of-Building-compatible savefile 
 
+## Binary Releases ##
+I will build Windows binaries for this (via pyinstaller) periodically - I don't have the time/resources to build and test Linux and MACOS ones tho - if anyone else would liek to do that, let me know (buildit.bat is the Windows build command)
+
 ## Known Issues ##
-There will be LOADS - this is the first release and it's end-of-league - do let me know what you find tho!!
+If the task-tray/program won't close - check you don't have a page open in a browser, this can keep the server alive/stop the program ending cleanly.
