@@ -77,7 +77,7 @@ def decodemap(maptext):
             if not map["Identified"]:
                 mapstub += " Unid"
             elif len(map["Modifiers"]) > 0:
-                mapstub += f' {len(map["Modifiers"])}Mod'
+                mapstub += f'Mods: {len(map["Modifiers"])}'
             if map["Corrupted"]:
                 mapstub += " Corrupt"
             utils.writelog(mapstub)
