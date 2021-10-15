@@ -24,6 +24,11 @@ except Exception:
 
 # OPTIONS
 options = {}
+defaultoptions = {
+    "clientlog": "path to POE/logs/client.txt goes here",
+    "account": "your POE account name - login NOT character - goes here",
+    "POBTREEVER": "3_15"
+}
 
 def getopt(opt):
     global options
@@ -42,15 +47,17 @@ def saveopt():
     with open('settings.json', 'w') as outfile:
         json.dump(options, outfile, sort_keys=True, indent=4)
 
-try:
-    with open('settings.json') as json_file:
-        options = json.load(json_file)
-except:
-    options = {
-        "clientlog": "path to POE/logs/client.txt goes here",
-        "account": "your POE account name - login NOT character - goes here"
-    }
+def loadopt():
+    global options,defaultoptions
+    try:
+        with open('settings.json') as json_file:
+            options = json.load(json_file)
+    except:
+        options = {}
+    options = {**defaultoptions, **options}
     saveopt()
+
+loadopt()
 
 # OUTPUT
 def writelog(line):

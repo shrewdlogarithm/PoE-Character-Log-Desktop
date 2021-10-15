@@ -5,6 +5,7 @@ data/
 logs/
 pob/
 *.spec
-*.json
+accountdb.json
+settings.json
 poeclog.log
 *test*
