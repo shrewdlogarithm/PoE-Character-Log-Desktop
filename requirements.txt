@@ -1,5 +1,5 @@
 pyperclip==1.8.2
-requests==2.25.1
-pystray==0.17.3
 bottle==0.12.19
+pystray==0.17.3
+requests==2.25.1
 Pillow==8.4.0
