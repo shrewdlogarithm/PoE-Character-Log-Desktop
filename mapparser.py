@@ -66,10 +66,26 @@ def decodemap(maptext):
                             if occu:
                                 map["Occupied"] = occu.groups()[0].strip()
                                 continue
+                            if "Fungal Growths" in ln:
+                                break # it's in the name anyway but suppress the mods
+                            if "Deliri" in ln:
+                                delrew = re.search(r'Reward Type: (.*) \(',ln)
+                                if delrew:
+                                    if not "DelRewards" in map:
+                                        map["DelRewards"] = []
+                                    map["DelRewards"].append(delrew.groups()[0])
+                                dellvl = re.search(r'Players in Area are ([0-9]+)% Delirious',ln)
+                                if dellvl:
+                                    map["Delirium"] = dellvl.groups()[0]
+                                continue
                             if len(ln) > 2:
                                 map["Modifiers"].append(ln)
             print(map)
             mapstub = map["Name"] + " T" + map["Map Tier"] 
+            if "Delirium" in map:
+                mapstub = f'Delirious {map["Delirium"]}' + mapstub
+            if map["Corrupted"]:
+                mapstub = "Corrupted " + mapstub
             if map["Item Quantity"] > 0:
                 mapstub += f' Qt:{map["Item Quantity"]}'
             if map["Quality"] > 0:
@@ -77,8 +93,6 @@ def decodemap(maptext):
             if not map["Identified"]:
                 mapstub += " Unid"
             elif len(map["Modifiers"]) > 0:
-                mapstub += f'Mods: {len(map["Modifiers"])}'
-            if map["Corrupted"]:
-                mapstub += " Corrupt"
+                mapstub += f' Mods: {len(map["Modifiers"])}'
             utils.writelog(mapstub)
             lastmap = maptext
