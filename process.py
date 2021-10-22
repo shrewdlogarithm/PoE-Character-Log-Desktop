@@ -7,6 +7,7 @@ lastlogdate = 0
 
 def checklog():
     global lastlogdate,lastlogfile
+    lastzonelevel = "?"
     if os.path.exists(utils.getopt("clientlog")):
         upd = os.stat(utils.getopt("clientlog")).st_mtime
         if upd != lastlogfile:
@@ -30,9 +31,13 @@ def checklog():
                                 elif int(logln.groups()[dp]) < int(lastlogdate[dp]):
                                     break                            
                         if lastlogdate != 0 and newlog:
-                            zonedf = re.search("Generating level ([0-9]+) area \"(.*)\"",logln.groups()[7])
+                            zonedl = re.search("Generating level ([0-9]+) area \"(.*)\"",logln.groups()[7])
+                            if zonedl:
+                                lastzonelevel = zonedl.groups()[0]
+                            zonedf = re.search("You have entered (.*)\.",logln.groups()[7])
                             if zonedf:
-                                utils.writelog(zonedf.groups()[1] + " (" + zonedf.groups()[0] + ")")   
+                                #utils.writelog(zonedf.groups()[1] + " (" + zonedf.groups()[0] + ")")   
+                                utils.writelog(zonedf.groups()[0] + " (" + lastzonelevel + ")")      
                                 loadprofile()                                      
                 except:
                     utils.writelog("Error decoding PoE Log")            
