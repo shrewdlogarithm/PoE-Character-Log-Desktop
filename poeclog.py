@@ -50,7 +50,7 @@ def runupd(icon):
     process.loadprofile()
 
 def showpg(pg,icon):
-    webbrowser.open("http://localhost:8080/" + pg)
+    webbrowser.open("http://localhost:" + utils.getopt("port") + "/" + pg)
 
 def about(icon):
     webbrowser.open("https://github.com/shrewdlogarithm/" + utils.homep)

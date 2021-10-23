@@ -81,7 +81,7 @@ def start():
                 message = "Account not found or private?"
         return template(utils.base_path +"templates/settings.tpl",{"message": message,"options": utils.options})
         
-    server = MyServer(port=8080)
+    server = MyServer(port=utils.getopt("port"))
     try:
         app.run(server=server)
     except:
