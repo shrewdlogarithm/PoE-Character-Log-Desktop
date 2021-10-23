@@ -1,4 +1,4 @@
-import os
+import os,re
 from http import server
 from bottle import Bottle, ServerAdapter, static_file,template, request
 import process,utils
@@ -46,6 +46,23 @@ def start():
     def log():
         return template(utils.base_path +"templates/log.tpl")
 
+    @app.route('/logdata', method="POST")
+    def logupdate():
+        logdata = []
+        lastlog = 0
+        if "lastlog" in request.forms.dict:
+            lastlog = parsedate(request.forms.get("lastlog"))
+        try:
+            f = open("poeclog.log", encoding='utf-8', errors='ignore')
+            for li in f.readlines():
+                if parsedate(li) > lastlog:
+                    logdata.append(li)
+        except:
+            pass
+        finally:
+            f.close()
+        return {"loglines": logdata}
+
     @app.route("/settings")
     def settings():
         return template(utils.base_path +"templates/settings.tpl")
@@ -61,7 +78,7 @@ def start():
             utils.setopt("account",request.POST["account"])
             api = process.getprofile()
             if api.status_code != 200:
-                message = "Account not found or private"
+                message = "Account not found or private?"
         return template(utils.base_path +"templates/settings.tpl",{"message": message,"options": utils.options})
         
     server = MyServer(port=8080)
@@ -75,3 +92,10 @@ def start():
 def stop():
     global server
     server.stop()
+
+def parsedate(datestr):
+    vals = re.search(r"^([0-9]+)/([0-9]+)/([0-9]+), ([0-9]+):([0-9]+):([0-9]+)",datestr)
+    if vals:
+        return int(vals.groups()[2].zfill(4) + vals.groups()[1].zfill(2) + vals.groups()[0].zfill(2) + vals.groups()[3].zfill(2) + vals.groups()[4].zfill(2) + vals.groups()[5].zfill(2))
+    else:
+        return 0
