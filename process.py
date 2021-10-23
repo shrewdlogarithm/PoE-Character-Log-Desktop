@@ -46,7 +46,8 @@ def checklog():
                 lastlogdate = logln.groups()
         lastlogfile = upd
     else:
-        utils.writelog("Path to client.txt log file invalid/not found")
+        utils.writelog("Path to client.txt log file invalid/not found - check settings.json")
+        utils.loadopt()
 
 # PROFILE
 poesite = 'https://www.pathofexile.com'
@@ -92,7 +93,8 @@ def loadprofile():
                     break
             olddb = apichardb
         else:
-            utils.writelog("PoE Account missing/not found or private?")
+            utils.writelog("PoE Account not found or private - check settings.json")
+            utils.loadopt()
         utils.setopt("lastapi",time.time())
 
 def addlog(account,chrname,data):
