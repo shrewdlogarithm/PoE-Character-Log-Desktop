@@ -2,7 +2,7 @@ import sys,os,json
 from datetime import datetime
 
 homep = "PoE-Character-Log-Desktop"
-vers = "0.315.01"
+vers = "0.316.01"
 accountdb = "accountdb.json"
 
 # create directories
@@ -27,7 +27,7 @@ options = {}
 defaultoptions = {
     "clientlog": "path to POE/logs/client.txt goes here",
     "account": "your POE account name - login NOT character - goes here",
-    "POBTREEVER": "3_15"
+    "POBTREEVER": "3_16"
 }
 
 def getopt(opt):
