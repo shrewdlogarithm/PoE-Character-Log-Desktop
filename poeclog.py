@@ -1,6 +1,6 @@
 import os,time,threading,pystray,webbrowser,pyperclip
 from PIL import Image
-import server,process,utils
+import server,process,utils,rebuild_all
 import mapparser
 
 runprocess = True
@@ -73,6 +73,9 @@ pystray.Icon('Icon', Image.open(utils.base_path + "poeclog.png") , menu=pystray.
         pystray.MenuItem(
             'Settings',
             lambda icon, item: showpg("settings",icon)),
+        pystray.MenuItem(
+            'Rebuild Db, Logs, PoBs',
+            lambda icon, item: rebuild_all.run()),
         pystray.MenuItem(
             'Version ' + utils.vers,
             lambda icon, item: about(icon)),
