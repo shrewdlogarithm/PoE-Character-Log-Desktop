@@ -60,7 +60,7 @@ def exit_action(icon):
     runprocess = False
     server.stop()
 
-pystray.Icon('Icon', Image.open(utils.base_path + "poe.png") , menu=pystray.Menu(
+pystray.Icon('Icon', Image.open(utils.base_path + "poeclog.png") , menu=pystray.Menu(
         pystray.MenuItem(
             'Update Now',
             lambda icon, item: runupd(icon)),
