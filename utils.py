@@ -2,7 +2,7 @@ import sys,os,json
 from datetime import datetime
 
 homep = "PoE-Character-Log-Desktop"
-vers = "0.316.01"
+vers = "0.316.02"
 accountdb = "accountdb.json"
 
 # create directories
