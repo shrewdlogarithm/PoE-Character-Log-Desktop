@@ -17,7 +17,7 @@
                 $(this).val("Pastecode Copied")
                 setTimeout($.proxy(function() {
                     $(this).val(oldc)
-                },this), 600);
+                },this), 2000);
                 
             }
         </script>
