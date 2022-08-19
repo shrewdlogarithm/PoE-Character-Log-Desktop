@@ -27,7 +27,7 @@ options = {}
 defaultoptions = {
     "clientlog": "path to POE/logs/client.txt goes here",
     "account": "your POE account name - login NOT character - goes here",
-    "POBTREEVER": "3_18",
+    "POBTREEVER": "3_19",
     "port": "8080"
 }
 
